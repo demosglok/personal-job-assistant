@@ -42,7 +42,7 @@ export default {
 <style scoped>
 .wrapper {
   margin: auto;
-  margin-top: 20%;
+  margin-top: 15%;
   width: 500px;
 }
 </style>

@@ -1,7 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
-import Account from "@/views/Account.vue";
+import Profile from "@/views/Profile.vue";
+import Requests from "@/views/Requests.vue";
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 
 const routes = [
@@ -21,9 +22,14 @@ const routes = [
     component: Login,
   },
   {
-    path: "/account",
-    name: "Account",
-    component: Account,
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/requests",
+    name: "Requests",
+    component: Requests,
   },
   {
     path: "/privacy",

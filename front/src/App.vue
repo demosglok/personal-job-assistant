@@ -5,9 +5,10 @@
       <el-menu :default-active="home"  mode="horizontal" :router="true">
         <el-menu-item index="home" >Home</el-menu-item>
         <template v-if="loggedin">
-          <el-menu-item index="profile" >Account</el-menu-item>
-          <el-menu-item index="requests" >Account</el-menu-item>
-          <a href="#" @click="logout">logout</a>
+          <el-menu-item index="profile" >Профиль-анкета</el-menu-item>
+          <el-menu-item index="requests" >Запросы</el-menu-item>
+          <el-menu-item index="#"><a href="#" @click="logout">Выйти</a></el-menu-item>
+
         </template>
         <template v-else>
           <el-menu-item index="login">Login</el-menu-item>

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>Account</h1>
+    <h1>Profile</h1>
     <p>
       Account page for user
     </p>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'Account',
+  name: 'Profile',
   props: {
   },
   computed: {

@@ -42,7 +42,9 @@
       </ol>
     </div>
     </div>
-    <el-button type="primary" @click="login">Попробовать, это бесплатно</el-button>
+    <div class="controls">
+      <el-button type="primary" @click="login">Попробовать, это бесплатно</el-button>
+    </div>
   </div>
 </template>
 
@@ -61,6 +63,10 @@ export default {
 
 
 <style scoped>
+.wrapper {
+  max-width: 1024px;
+  margin: auto;
+}
 h1 {
   text-align: center;
   font-size:24px;
@@ -86,5 +92,9 @@ section {
 }
 .columns {
   display: flex;
+}
+.controls  {
+  display: flex;
+  justify-content: center;
 }
 </style>
