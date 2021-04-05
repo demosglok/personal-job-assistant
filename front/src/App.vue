@@ -8,7 +8,6 @@
 
 <script>
 
-
 export default {
   name: 'App',
   computed: {
@@ -27,10 +26,9 @@ export default {
       .then(() => this.$router.push('/account'))
       .catch(ex => console.log("App failed to load user", ex.message));
   }
-
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

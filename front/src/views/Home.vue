@@ -1,9 +1,14 @@
 <template>
   <div class="wrapper">
     <h1>Home page</h1>
-    <p>
-      some project description here
-    </p>
+    <div>
+      <p>
+        If Element Plus is successfully added to this project, you'll see an
+        <code v-text="'<el-button>'"></code>
+        below
+      </p>
+      <el-button type="primary">el-button</el-button>
+    </div>
     <router-link to="/login">Login and Try our project</router-link>
   </div>
 </template>
