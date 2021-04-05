@@ -60,10 +60,7 @@ export default {
 .el-footer {
   text-align: center;
 }
-.mainwrapper1 {
-  background: url("~@/assets/back2.jpeg") no-repeat center center;
-  background-size: cover;
-}
+
 </style>
 <style>
   body {
