@@ -1,9 +1,29 @@
 <template>
-  <div>Navigation:
-    <span v-if="loggedin"><a href="#" @click="logout">logout</a></span>
-    <span v-else><router-link to="/login">login</router-link></span>
-  </div>
-  <router-view />
+  <div class="mainwrapper">
+  <el-container>
+    <el-header>
+      <el-menu :default-active="home"  mode="horizontal" :router="true">
+        <el-menu-item index="home" >Home</el-menu-item>
+        <template v-if="loggedin">
+          <el-menu-item index="profile" >Account</el-menu-item>
+          <el-menu-item index="requests" >Account</el-menu-item>
+          <a href="#" @click="logout">logout</a>
+        </template>
+        <template v-else>
+          <el-menu-item index="login">Login</el-menu-item>
+        </template>
+      </el-menu>
+    </el-header>
+    <el-main>
+        <router-view />
+    </el-main>
+    <el-footer>
+      <div>Personalised Job Assistant</div>
+      <div>Dmytro Selin (c) 2021</div>
+    </el-footer>
+  </el-container>
+</div>
+
 </template>
 
 <script>
@@ -29,6 +49,24 @@ export default {
 }
 </script>
 
+<style scoped>
+.el-container {
+  min-height: 100vh;
+}
+.el-main {
+  height: 100%;
+}
+.el-footer {
+  text-align: center;
+}
+.mainwrapper1 {
+  background: url("~@/assets/back2.jpeg") no-repeat center center;
+  background-size: cover;
+}
+</style>
 <style>
-
+  body {
+    margin: 0;
+    padding: 0;
+  }
 </style>

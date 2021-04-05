@@ -2,13 +2,13 @@
   <div class="wrapper">
     <h1>Login</h1>
     <p>
-      Login with one of oauth providers
+      Залогинься используя один из вариантов
     </p>
     <div>
-      <button @click="facebook">Facebook</button>
-      <button @click="google">Google</button>
-      <button @click="github">GitHub</button>
-      <button @click="linkedin">LinkedIn</button>
+      <el-button @click="facebook">Facebook</el-button>
+      <el-button @click="google">Google</el-button>
+      <el-button @click="github">GitHub</el-button>
+      <el-button @click="linkedin">LinkedIn</el-button>
     </div>
 
   </div>
@@ -40,5 +40,9 @@ export default {
 
 
 <style scoped>
-
+.wrapper {
+  margin: auto;
+  margin-top: 20%;
+  width: 500px;
+}
 </style>
