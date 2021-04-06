@@ -2,7 +2,7 @@
   <div class="mainwrapper">
   <el-container>
     <el-header>
-      <el-menu :default-active="home"  mode="horizontal" :router="true">
+      <el-menu default-active="home"  mode="horizontal" :router="true">
         <el-menu-item index="home" >Home</el-menu-item>
         <template v-if="loggedin">
           <el-menu-item index="profile" >Профиль-анкета</el-menu-item>
@@ -44,7 +44,7 @@ export default {
   mounted() {
     this.$store
       .dispatch("loadUser")
-      .then(() => this.$router.push('/account'))
+      .then(() => this.$router.push('/profile'))
       .catch(ex => console.log("App failed to load user", ex.message));
   }
 }

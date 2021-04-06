@@ -11,8 +11,6 @@
 <script>
 export default {
   name: 'Profile',
-  props: {
-  },
   computed: {
     user() {
       return this.$store.getters.getUser;

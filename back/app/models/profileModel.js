@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const criteriaSchema = mongoose.Schema({
   name: String,
   type: {type: String, enum: ['text', 'number', 'select']},
-  weight: Number,
 
   min_acceptable_value: Number, //in case type is number
+  start_weight: Number,
   weight_per_increment: Number, //how weight changes when value increases for number/numeric values
 
   keywords: [{word: String, weight: Number}],// for 'text' type

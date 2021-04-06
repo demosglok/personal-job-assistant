@@ -19,8 +19,7 @@ import config from "@/config";
 
 export default {
   name: 'Landing',
-  props: {
-  },
+
   methods: {
     facebook() {
       window.location = config.authUrls.fb;

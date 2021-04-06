@@ -51,8 +51,7 @@
 <script>
 export default {
   name: 'Home',
-  props: {
-  },
+
   methods: {
     login() {
       this.$router.push('/login');
