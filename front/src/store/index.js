@@ -4,6 +4,7 @@ import { http } from '@/http';
 const store = createStore({
   state: {
     user: {},
+    profile: null
   },
   getters: {
     loggedin: (state) => state.user && (state.user.id || state.user._id),
@@ -17,6 +18,13 @@ const store = createStore({
         state.user = { ...user, id: user._id }
       }
     },
+    setProfile(state, profile) {
+      if(profile) {
+        state.profile = {...profile};
+      } else {
+        state.profile = null;
+      }
+    }
   },
   actions: {
     logout(context) {
@@ -37,6 +45,21 @@ const store = createStore({
           throw ex
         })
     },
+    loadProfile(context) {
+      return http.get('/profile')
+        .then(res => {
+          console.log('loadProfile', res);
+          context.commit('setProfile', res.profile);
+          return res;
+        });
+    },
+    storeProfile(context, criterias) {
+      return http.post('/profile', {criterias})
+        .then(res => {
+          context.commit('setProfile', res.profile);
+          return res;
+        });
+    }
   }
 });
 

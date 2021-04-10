@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
-import router from '@/router'
+//import router from '@/router';
 
 const http = axios.create({
   baseURL: config.BACKEND_URL,
@@ -16,12 +16,12 @@ http.interceptors.response.use(
     }
   },
   (err) => {
-    if(err && err.response) {
+    /*if(err && err.response) {
       if(err.response.status === 401 ||
         (err.response.data && err.response.data.error === 'Not authorized')) {
         router.replace('/login')
       }
-    }
+    }*/
     return Promise.reject(err);
   });
 

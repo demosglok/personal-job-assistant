@@ -1,11 +1,23 @@
 <template>
   <div class="wrapper">
     <h1>Ваш Профиль</h1>
+    <template v-if="no_existing_profile">
     <p>
       Если вы еще не заполняли, здесь нужно создать небольшую форму,
       в которой предложить наиболее важные для вас критерии в поиске работы: зарплата, стек, компания, район
     </p>
-    <p v-if="no_existing_profile">6 вопросов сгенерированы по шаблону. Вы можете удалить их и создать свои или отредактировать</p>
+    <p>6 вопросов сгенерированы по шаблону. Вы можете удалить их и создать свои или отредактировать</p>
+    </template>
+    <template v-else>
+    <p>Это ваш список наиболее важных критериев (например зарплата, стек, удаленка) с их весами для сортировки вакансий по
+    интересности лично для Вас</p>
+    <p>
+      Ссылка на профиль для рекрутеров <a :href="profile_url" target="_blank">{{profile_url}}</a>
+    </p>
+    <p>Разместите ее в Ваших профилях с вежливым комментарием что б предложить рекрутерам писать Вам через эту форму если
+    Вы не отвечаете на их запросы. Например <span class="example">"Приношу свои извинения если не отвечаю на ваши сообщения.
+    Воспользутесь следующей ссылкой для ваших предложений, так больше шанс что отвечу {{profile_url}}"</span></p>
+    </template>
     <div class="criterias">
       <div v-for="(criteria, index) in criterias" :key="criteria.name" class="criteria">
 
@@ -82,7 +94,32 @@ export default {
   },
   computed: {
     no_existing_profile() {
-      return true;
+      console.log("profile doesn't exist", !this.$store.state.profile);
+      return !this.$store.state.profile;
+    },
+    profile_url() {
+      const profile_id = this.$store.state.profile.uniq_url;
+      if(profile_id) {
+        return `${window.location.origin}/request/${profile_id}`;
+      } else {
+        return null;
+      }
+    },
+    stored_profile() {
+      return this.$store.state.profile;
+    }
+
+  },
+  mounted() {
+    if(this.$store.state.profile) {
+      console.log('using profile from backend', this.$store.state.profile);
+      this.criterias = this.$store.state.profile.criterias.map(criteria => ({...criteria, key: uuidv4()}));
+    }
+  },
+  watch: {
+    stored_profile(newVal) {
+      console.log('stored profile has changed', newVal);
+      this.criterias = newVal.criterias.map(criteria => ({...criteria, key: uuidv4()}));
     }
   },
   methods: {
@@ -100,9 +137,9 @@ export default {
     },
     save() {
       console.log('save', [...this.criterias]);
+      this.$store.dispatch('storeProfile', [...this.criterias]);
     },
     onCriteriaDataUpdated(index, changedData) {
-      console.log('changed', this.criterias[index], {...changedData});
       // preserving key
       const newObject = {...changedData};
       newObject.key = this.criterias[index].key;
@@ -139,5 +176,9 @@ export default {
 }
 .delbtn_wrapper {
   margin-left: 20px;
+}
+.example {
+  color: #555;
+  font-style: italic;
 }
 </style>

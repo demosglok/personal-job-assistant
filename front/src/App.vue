@@ -44,6 +44,7 @@ export default {
   mounted() {
     this.$store
       .dispatch("loadUser")
+      .then(() => this.$store.dispatch("loadProfile"))
       .then(() => this.$router.push('/profile'))
       .catch(ex => console.log("App failed to load user", ex.message));
   }
