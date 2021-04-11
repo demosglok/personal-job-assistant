@@ -21,6 +21,7 @@
     <el-footer>
       <div>Personalised Job Assistant</div>
       <div>Dmytro Selin (c) 2021</div>
+      <div class="privacypolicy"><router-link to="/privacypolicy">Privacy Policy</router-link></div>
     </el-footer>
   </el-container>
 </div>
@@ -65,7 +66,13 @@ export default {
 .el-footer {
   text-align: center;
 }
-
+.privacypolicy {
+  font-size: 10px;
+}
+.privacypolicy>a {
+  color: #888;
+  text-decoration: none;
+}
 </style>
 <style>
   body {

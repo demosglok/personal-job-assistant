@@ -10,6 +10,9 @@
       <el-button @click="github">GitHub</el-button>
       <el-button @click="linkedin">LinkedIn</el-button>
     </div>
+    <div class="privacypolicy_link">
+      Регистрируясь на нашем сайте вы соглашаетесь с политикой о приватных данных <router-link to="/privacypolicy">Privacy Policy</router-link>
+    </div>
 
   </div>
 </template>
@@ -43,5 +46,9 @@ export default {
   margin: auto;
   margin-top: 15%;
   width: 500px;
+}
+.privacypolicy_link {
+  margin-top: 12px;
+  font-size:14px;
 }
 </style>
