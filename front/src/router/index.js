@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Profile from "@/views/Profile.vue";
 import Requests from "@/views/Requests.vue";
+import Request from "@/views/Request.vue";
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 
 const routes = [
@@ -32,9 +33,18 @@ const routes = [
     component: Requests,
   },
   {
+    path: "/request/:id",
+    name: 'Request',
+    component: Request
+  },
+  {
     path: "/privacy",
     name: "PrivacyPolicy",
     component: PrivacyPolicy,
+  },
+  {
+    path: '/_=_', // workaround - fb redirect
+    redirect: './',
   },
 ];
 

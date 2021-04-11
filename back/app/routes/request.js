@@ -3,6 +3,7 @@ const onlyAuthMiddleware = require('../middleware/onlyAuth');
 const requestController = require('../controllers/requestController');
 
 router.get('/', [onlyAuthMiddleware], requestController.getRequests);
-router.post('/', requestController.saveRequest);
+router.get('/profileForRequest/:hash', requestController.getProfileForRequest);
+router.post('/:hash', requestController.saveRequest);
 
 module.exports = router;

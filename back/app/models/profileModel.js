@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const criteriaSchema = mongoose.Schema({
+  key: String,
   name: String,
   type: {type: String, enum: ['text', 'number', 'select']},
 
@@ -8,15 +9,16 @@ const criteriaSchema = mongoose.Schema({
   start_weight: Number,
   weight_per_increment: Number, //how weight changes when value increases for number/numeric values
 
-  keywords: [{word: String, weight: Number}],// for 'text' type
+  keywords: [{word: String, weight: Number, key: String}],// for 'text' type
 
-  select_options: [{option: String, weight: Number}], //for 'select' type
+  select_options: [{option: String, weight: Number, key: String}], //for 'select' type
 });
 
 const profileSchema = mongoose.Schema({
   user_id: { type: mongoose.Schema.ObjectId, ref: 'User', index: true },
   criterias: [criteriaSchema],
   uniq_url: {type: String, index: true, unique: true},
+  name_for_profile: String,
 
   created_at: Date,
   updated_at: Date,

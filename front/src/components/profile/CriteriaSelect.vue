@@ -28,10 +28,6 @@ export default {
   name: 'CriteriaSelect',
   props: {
       data: Object
-      /*{
-        name: String,
-        select_options: [{option: String, weight: Number}], //for 'select' type
-      }*/
   },
   data() {
     return {
@@ -42,7 +38,7 @@ export default {
   mounted() {
     this.name = this.data.name;
     this.select_options = this.data.select_options
-      ? this.data.select_options.map(({option, weight})=>({option, weight, key: uuidv4()}))
+      ? this.data.select_options.map(({option, weight, key})=>({option, weight, key: key ?? uuidv4()}))
       : [];
   },
   methods: {

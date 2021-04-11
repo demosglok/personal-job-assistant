@@ -40,7 +40,7 @@ export default {
   mounted() {
     this.name = this.data.name;
     this.keywords = this.data.keywords
-      ? this.data.keywords.map(({word, weight}) => ({word, weight, key: uuidv4()}))
+      ? this.data.keywords.map(({word, weight, key}) => ({word, weight, key: key ?? uuidv4()}))
       : [];
   },
   methods: {

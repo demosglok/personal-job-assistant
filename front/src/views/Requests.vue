@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Profile',
+  name: 'Requests',
   computed: {
     user() {
       return this.$store.getters.getUser;

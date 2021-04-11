@@ -19,7 +19,13 @@
     Воспользутесь следующей ссылкой для ваших предложений, так больше шанс что отвечу {{profile_url}}"</span></p>
     </template>
     <div class="criterias">
-      <div v-for="(criteria, index) in criterias" :key="criteria.name" class="criteria">
+      <div>
+        <el-row>
+          <el-col :span="8">Ваше имя как его увидит рекрутер</el-col>
+          <el-col :span="16"><el-input v-model="name_for_profile"/></el-col>
+        </el-row>
+      </div>
+      <div v-for="(criteria, index) in criterias" :key="criteria.key" class="criteria">
 
         <CriteriaText :data="criteria" v-if="criteria.type=='text'" @dataupdated="onCriteriaDataUpdated(index, $event)"/>
         <CriteriaNumber :data="criteria" v-if="criteria.type=='number'" @dataupdated="onCriteriaDataUpdated(index, $event)"/>
@@ -43,15 +49,16 @@
 <script>
 const criteria_types = Object.freeze({text: 'text', number: 'number', select: 'select'});
 
-import CriteriaText from '@/components/CriteriaText';
-import CriteriaNumber from '@/components/CriteriaNumber';
-import CriteriaSelect from '@/components/CriteriaSelect';
+import CriteriaText from '@/components/profile/CriteriaText';
+import CriteriaNumber from '@/components/profile/CriteriaNumber';
+import CriteriaSelect from '@/components/profile/CriteriaSelect';
 import {v4 as uuidv4} from 'uuid';
 
 export default {
   name: 'Profile',
   data() {
     return {
+      name_for_profile: null,
       criterias: [{
         key: uuidv4(),
         name: 'Зарплата',
@@ -64,31 +71,31 @@ export default {
         key: uuidv4(),
         name: 'Языки программирования (стек)',
         type: criteria_types.text,
-        keywords: [{word: 'C++', weight: 10}, {word: 'C#', weight: 20}, {word: 'javascript', weight: -10}],
+        keywords: [{word: 'C++', weight: 10, key: uuidv4()}, {word: 'C#', weight: 20, key: uuidv4()}, {word: 'javascript', weight: -10, key: uuidv4()}],
       },
       {
         key: uuidv4(),
         name: 'Аутсорс/Продукт',
         type: criteria_types.select,
-        select_options: [{option: 'аутсорс', weight: 5}, {option: 'аутстаф', weight: 10}, {option: 'продукт', weight: 10}, {option: 'стартап', weight: 20}],
+        select_options: [{option: 'аутсорс', weight: 5, key: uuidv4()}, {option: 'аутстаф', weight: 10, key: uuidv4()}, {option: 'продукт', weight: 10, key: uuidv4()}, {option: 'стартап', weight: 20, key: uuidv4()}],
       },
       {
         key: uuidv4(),
         name: 'Индустрия/Сфера',
         type: criteria_types.select,
-        select_options: [{option: 'Healthcare', weight: 5}, {option: 'Gaming', weight: 5}, {option: 'ФинТех', weight: 10}, {option: 'Остальное', weight: 0}],
+        select_options: [{option: 'Healthcare', weight: 5, key: uuidv4()}, {option: 'Gaming', weight: 5, key: uuidv4()}, {option: 'ФинТех', weight: 10, key: uuidv4()}, {option: 'Остальное', weight: 0, key: uuidv4()}],
       },
       {
         key: uuidv4(),
         name: 'Удаленная работа',
         type: criteria_types.select,
-        select_options: [{option: 'полностью удаленно', weight: 20}, {option: 'полностью офис', weight: -10}, {option: 'гибрид офис+удаленка', weight: 10}],
+        select_options: [{option: 'полностью удаленно', weight: 20, key: uuidv4()}, {option: 'полностью офис', weight: -10, key: uuidv4()}, {option: 'гибрид офис+удаленка', weight: 10, key: uuidv4()}],
       },
       {
         key: uuidv4(),
         name: 'Город',
         type: criteria_types.text,
-        keywords: [{word: 'Киев', weight: 10}, {word: 'Днепр', weight: 20}, {word: 'Удаленно', weight: 30}],
+        keywords: [{word: 'Киев', weight: 10, key: uuidv4()}, {word: 'Днепр', weight: 20, key: uuidv4()}, {word: 'Удаленно', weight: 30, key: uuidv4()}],
       }]
     }
   },
@@ -113,13 +120,16 @@ export default {
   mounted() {
     if(this.$store.state.profile) {
       console.log('using profile from backend', this.$store.state.profile);
-      this.criterias = this.$store.state.profile.criterias.map(criteria => ({...criteria, key: uuidv4()}));
+      this.criterias = this.$store.state.profile.criterias.map(criteria => ({...criteria, key: criteria.key ?? uuidv4()}));
+      this.name_for_profile = this.$store.state.profile.name_for_profile;
+    } else {
+      this.name_for_profile = this.$store.state.user.name;
     }
   },
   watch: {
     stored_profile(newVal) {
-      console.log('stored profile has changed', newVal);
-      this.criterias = newVal.criterias.map(criteria => ({...criteria, key: uuidv4()}));
+      this.criterias = newVal.criterias.map(criteria => ({...criteria, key: criteria.key ?? uuidv4()}));
+      this.name_for_profile = newVal.name_for_profile;
     }
   },
   methods: {
@@ -137,7 +147,7 @@ export default {
     },
     save() {
       console.log('save', [...this.criterias]);
-      this.$store.dispatch('storeProfile', [...this.criterias]);
+      this.$store.dispatch('storeProfile', {criterias: [...this.criterias], name_for_profile: this.name_for_profile});
     },
     onCriteriaDataUpdated(index, changedData) {
       // preserving key

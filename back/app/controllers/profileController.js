@@ -30,6 +30,9 @@ module.exports = {
         if(req.body.criterias) {
           profile.criterias = req.body.criterias;
         }
+        if(req.body.name_for_profile) {
+          profile.name_for_profile = req.body.name_for_profile;
+        }
         profile.updated_at = Date.now();
         await profile.save();
         res.json({ success: true, profile });

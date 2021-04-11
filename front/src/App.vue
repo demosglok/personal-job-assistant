@@ -2,11 +2,11 @@
   <div class="mainwrapper">
   <el-container>
     <el-header>
-      <el-menu default-active="home"  mode="horizontal" :router="true">
-        <el-menu-item index="home" >Home</el-menu-item>
+      <el-menu  mode="horizontal" :router="true">
+        <el-menu-item index="/home" >Home</el-menu-item>
         <template v-if="loggedin">
-          <el-menu-item index="profile" >Профиль-анкета</el-menu-item>
-          <el-menu-item index="requests" >Запросы</el-menu-item>
+          <el-menu-item index="/profile" >Профиль-анкета</el-menu-item>
+          <el-menu-item index="/requests" >Запросы</el-menu-item>
           <el-menu-item index="#"><a href="#" @click="logout">Выйти</a></el-menu-item>
 
         </template>
@@ -45,7 +45,11 @@ export default {
     this.$store
       .dispatch("loadUser")
       .then(() => this.$store.dispatch("loadProfile"))
-      .then(() => this.$router.push('/profile'))
+      .then(() => {
+        if(this.$route.path == '/' || this.$route.path.startsWith('/home')) {
+          this.$router.push('/profile')
+        }
+      })
       .catch(ex => console.log("App failed to load user", ex.message));
   }
 }

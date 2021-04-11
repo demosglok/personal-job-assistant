@@ -53,12 +53,18 @@ const store = createStore({
           return res;
         });
     },
-    storeProfile(context, criterias) {
-      return http.post('/profile', {criterias})
+    storeProfile(context, {name_for_profile,criterias}) {
+      return http.post('/profile', {criterias, name_for_profile})
         .then(res => {
           context.commit('setProfile', res.profile);
           return res;
         });
+    },
+    loadProfileForRequest(context, profile_id) {
+      return http.get(`/request/profileForRequest/${profile_id}`);
+    },
+    storeRequest(context, {request, hash}) {
+      return http.post(`/request/${hash}`, request);
     }
   }
 });
