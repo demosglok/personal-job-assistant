@@ -2,8 +2,39 @@ const { v4: uuidv4 } = require('uuid');
 const Profile = require('../models/profileModel');
 const Request = require('../models/requestModel');
 
+function getWeightForNumberCriteria(answer, criteria) {
+  if(answer < criteria.min_acceptable_value) return 0;
+  return criteria.start_weight + (answer - criteria.min_acceptable_value)*criteria.weight_per_increment;
+}
+function getWeightForTextCriteria(answer, criteria) {
+  return criteria.keywords.reduce((acc, keyword) => acc + (answer.toLowerCase().includes(keyword.word.toLowerCase()) ? keyword.weight : 0), 0);
+}
+function getWeightForSelectCriteria(answer, criteria) {
+
+  const option = criteria.select_options.find(option => option.key == answer);
+  if(option) {
+    return option.weight;
+  }
+  return 0;
+}
+
 function calculate_weight(answers, profile) {
-  return 1;
+
+  return answers.reduce((weight, answer, index) => {
+    const criteria = profile.criterias[index];
+    if(criteria.key != answer.criteria_key) {
+      console.log('alarm, wrong key', criteria.key, answer.criteria_key);
+    }
+    switch(criteria.type) {
+      case 'text':
+        return weight + getWeightForTextCriteria(answer.answer, criteria);
+      case 'number':
+        return weight + getWeightForNumberCriteria(answer.answer, criteria);
+      case 'select':
+        return weight + getWeightForSelectCriteria(answer.answer, criteria);
+    }
+    return weight;
+  }, 0);
 }
 module.exports = {
   async getRequests(req, res) {

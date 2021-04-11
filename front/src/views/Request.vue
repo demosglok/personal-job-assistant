@@ -83,7 +83,10 @@ export default {
       };
       console.log('storing', this.$route.params.id);
       this.$store.dispatch('storeRequest', {request, hash: this.$route.params.id})
-        .then(() => this.saved = true)
+        .then(() => {
+          this.saved = true;
+          this.error = null;
+        })
         .catch(() => this.error = 'Ошибка при сохранениии. Попробуйте еще раз');
     }
   },

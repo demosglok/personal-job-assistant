@@ -9,7 +9,7 @@ const criteriaSchema = mongoose.Schema({
   start_weight: Number,
   weight_per_increment: Number, //how weight changes when value increases for number/numeric values
 
-  keywords: [{word: String, weight: Number, key: String}],// for 'text' type
+  keywords: [{word: {type: String, lowercase: true}, weight: Number, key: String}],// for 'text' type
 
   select_options: [{option: String, weight: Number, key: String}], //for 'select' type
 });
