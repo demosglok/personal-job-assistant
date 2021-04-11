@@ -101,7 +101,6 @@ export default {
   },
   computed: {
     no_existing_profile() {
-      console.log("profile doesn't exist", !this.$store.state.profile);
       return !this.$store.state.profile;
     },
     profile_url() {
@@ -119,7 +118,6 @@ export default {
   },
   mounted() {
     if(this.$store.state.profile) {
-      console.log('using profile from backend', this.$store.state.profile);
       this.criterias = this.$store.state.profile.criterias.map(criteria => ({...criteria, key: criteria.key ?? uuidv4()}));
       this.name_for_profile = this.$store.state.profile.name_for_profile;
     } else {
@@ -146,7 +144,6 @@ export default {
       this.criterias.splice(index, 1);
     },
     save() {
-      console.log('save', [...this.criterias]);
       this.$store.dispatch('storeProfile', {criterias: [...this.criterias], name_for_profile: this.name_for_profile});
     },
     onCriteriaDataUpdated(index, changedData) {

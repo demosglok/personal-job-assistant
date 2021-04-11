@@ -36,12 +36,28 @@ function calculate_weight(answers, profile) {
     return weight;
   }, 0);
 }
+
+const timeperiods = Object.freeze({
+    DAY: 'day',
+    WEEK: 'week',
+    MONTH: 'month'
+});
+const timeperiodsLengthes = Object.freeze({
+  [timeperiods.DAY]: 24*60*60 * 1000,
+  [timeperiods.WEEK]: 7*24*60*60 * 1000,
+  [timeperiods.MONTH]: 30*24*60*60 * 1000,
+})
 module.exports = {
   async getRequests(req, res) {
     if (req.user) {
+      const timeperiod = req.params.timeperiod ?? timeperiods.DAY;
+      let startTime = Date.now() - timeperiodsLengthes[timeperiod];
       try {
         const profile = await Profile.findOne({user_id: req.user.id});
-        const requests = await Request.findAll({profile_id: profile.id});
+        const requests = await Request.find({profile_id: profile.id, created_at: { $gte: startTime }})
+          .sort({calculated_weight:-1})
+          .limit(5)
+          .exec();
         res.json({ success: true, requests });
       } catch (ex) {
         res.json({ success: false, error: ex.message })

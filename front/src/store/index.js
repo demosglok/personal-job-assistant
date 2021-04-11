@@ -48,7 +48,6 @@ const store = createStore({
     loadProfile(context) {
       return http.get('/profile')
         .then(res => {
-          console.log('loadProfile', res);
           context.commit('setProfile', res.profile);
           return res;
         });
@@ -65,6 +64,9 @@ const store = createStore({
     },
     storeRequest(context, {request, hash}) {
       return http.post(`/request/${hash}`, request);
+    },
+    loadRequests(context, timeperiod) {
+      return http.get(`/request/${timeperiod}`)
     }
   }
 });

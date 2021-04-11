@@ -81,7 +81,6 @@ export default {
         recruiter_name: this.recruiter_name,
         contact: this.contact
       };
-      console.log('storing', this.$route.params.id);
       this.$store.dispatch('storeRequest', {request, hash: this.$route.params.id})
         .then(() => {
           this.saved = true;
