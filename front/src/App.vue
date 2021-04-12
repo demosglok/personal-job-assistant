@@ -5,8 +5,8 @@
       <el-menu  mode="horizontal" :router="true">
         <el-menu-item index="/home" >Home</el-menu-item>
         <template v-if="loggedin">
-          <el-menu-item index="/profile" >Профиль-анкета</el-menu-item>
-          <el-menu-item index="/requests" >Запросы</el-menu-item>
+          <el-menu-item index="/myprofile" >Профиль-анкета</el-menu-item>
+          <el-menu-item index="/vacancies" >Предложения</el-menu-item>
           <el-menu-item index="#"><a href="#" @click="logout">Выйти</a></el-menu-item>
 
         </template>
@@ -21,7 +21,11 @@
     <el-footer>
       <div>Personalised Job Assistant</div>
       <div>Dmytro Selin (c) 2021</div>
-      <div class="privacypolicy"><router-link to="/privacypolicy">Privacy Policy</router-link></div>
+      <div class="bottomlinks">
+        <a href="https://t.me/demosglok" target="_blank">Если что-то не работает или есть вопросы - пишите в телегу</a>
+         <br/>
+        <router-link to="/privacypolicy">Privacy Policy</router-link>
+      </div>
     </el-footer>
   </el-container>
 </div>
@@ -48,7 +52,7 @@ export default {
       .then(() => this.$store.dispatch("loadProfile"))
       .then(() => {
         if(this.$route.path == '/' || this.$route.path.startsWith('/home')) {
-          this.$router.push('/profile')
+          this.$router.push('/myprofile')
         }
       })
       .catch(ex => console.log("App failed to load user", ex.message));
@@ -66,10 +70,10 @@ export default {
 .el-footer {
   text-align: center;
 }
-.privacypolicy {
-  font-size: 10px;
+.bottomlinks {
+  font-size: 12px;
 }
-.privacypolicy>a {
+.bottomlinks>a {
   color: #888;
   text-decoration: none;
 }
