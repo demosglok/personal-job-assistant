@@ -62,13 +62,16 @@ export default {
           vacancies = this.monthVacancies;
           break;
       }
-      vacancies = vacancies.map(({calculated_weight, answers}) => ({
+      vacancies = vacancies.map(({calculated_weight, answers, raw_text, recruiter_name, contact}) => ({
         weight: calculated_weight,
         answers: answers.map(({answer}, index) =>
           this.criterias[index].type == 'select'
           ? this.criterias[index].select_options.find(({key}) => key == answer)?.option
           : answer
-        )
+        ),
+        raw_text,
+        recruiter_name,
+        contact
       }));
       return vacancies;
     },
