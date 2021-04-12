@@ -40,12 +40,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(authenticatedUserExpansionMiddleware);
 
+//app.get('/privacypolicy', (req, res) => res.sendfile('public/index.html'));
 app.get('/', (req, res, next) => res.redirect(process.env.FRONTEND_URL));
-app.use('/', routes);
+app.use('/api', routes);
 
-// catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    next(createError(404));
+    res.sendfile('public/index.html');
+    //next(createError(404));
 });
 
 app.use(function (err, req, res, next) {

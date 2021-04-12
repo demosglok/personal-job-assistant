@@ -50,7 +50,7 @@ const timeperiodsLengthes = Object.freeze({
 module.exports = {
   async getRequests(req, res) {
     if (req.user) {
-      const timeperiod = req.params.timeperiod ?? timeperiods.DAY;
+      const timeperiod = req.params.timeperiod || timeperiods.DAY;
       let startTime = Date.now() - timeperiodsLengthes[timeperiod];
       try {
         const profile = await Profile.findOne({user_id: req.user.id});
@@ -73,7 +73,7 @@ module.exports = {
       const preparedCriterias = profile.criterias.map(criteria => {
         const result = {name: criteria.name, key: criteria.key, type: criteria.type};
         if(criteria.type == 'select') {
-          result.select_options = criteria.select_options.map(option => ({key: option.key ?? option._id, label: option.option}))
+          result.select_options = criteria.select_options.map(option => ({key: option.key || option._id, label: option.option}))
         }
         return result;
       })
