@@ -35,7 +35,7 @@
 import timeconstants from '@/constants/timeconstants';
 
 export default {
-  name: 'Requests',
+  name: 'Vacancies',
   data() {
     return {
       error: null,

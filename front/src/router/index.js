@@ -2,9 +2,10 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Profile from "@/views/Profile.vue";
-import Requests from "@/views/Requests.vue";
+import Vacancies from "@/views/Vacancies.vue";
 import Request from "@/views/Request.vue";
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
+import DeleteInstructions from '@/views/DeleteInstructions.vue'
 
 import store from '@/store';
 
@@ -25,15 +26,15 @@ const routes = [
     component: Login,
   },
   {
-    path: "/profile",
-    name: "Profile",
+    path: "/myprofile",
+    name: "MyProfile",
     component: Profile,
     meta: { requiresAuth: true }
   },
   {
-    path: "/requests",
-    name: "Requests",
-    component: Requests,
+    path: "/vacancies",
+    name: "Vacancies",
+    component: Vacancies,
     meta: { requiresAuth: true }
   },
   {
@@ -45,6 +46,11 @@ const routes = [
     path: "/privacypolicy",
     name: "PrivacyPolicy",
     component: PrivacyPolicy,
+  },
+  {
+    path: "/deleteinstructions",
+    name: "DeleteInstructions",
+    component: DeleteInstructions,
   },
   {
     path: '/_=_', // workaround - fb redirect

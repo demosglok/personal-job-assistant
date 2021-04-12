@@ -92,6 +92,17 @@ section {
 .columns {
   display: flex;
 }
+@media only screen and (max-width: 800px) {
+  .columns {
+    flex-direction: column;
+  }
+  .howitworks {
+    width: auto;
+  }
+  .description {
+    width: auto;
+  }
+}
 .controls  {
   display: flex;
   justify-content: center;
